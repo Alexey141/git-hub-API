@@ -67,8 +67,8 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.pushButton.setText(_translate("Dialog", "Open port"))
-        self.pushButton_2.setText(_translate("Dialog", "Send"))
+        self.pushButton.setText(_translate("Dialog", "Search Ports"))
+        self.pushButton_2.setText(_translate("Dialog", "Open port"))
         self.comboBox_2.setItemText(0, _translate("Dialog", "50"))
         self.comboBox_2.setItemText(1, _translate("Dialog", "75"))
         self.comboBox_2.setItemText(2, _translate("Dialog", "110"))
@@ -86,4 +86,3 @@ class Ui_Dialog(object):
         self.comboBox_2.setItemText(14, _translate("Dialog", "57600"))
         self.comboBox_2.setItemText(15, _translate("Dialog", "115200"))
         self.comboBox_3.setItemText(0, _translate("Dialog", "..."))
-

@@ -6,7 +6,6 @@ from test import Ui_Dialog
 
 #ser = 0
 
-
 app = QtWidgets.QApplication(sys.argv)
 
 Dialog = QtWidgets.QDialog()
@@ -15,11 +14,13 @@ ui.setupUi(Dialog)
 Dialog.show()
 
 #Просиходит поиск портов и вывод их в comboBox.
-ports = serial.tools.list_ports.comports()
-for port in ports:
-    print('Нашли порт '+ port.device)
-    ui.comboBox.addItem(port.device)
+def Search():
+    ports = serial.tools.list_ports.comports()
+    for port in ports:
+        prnt('Нашли порт '+ port.device + "\n")
+        ui.comboBox.addItem(port.device)
 
+ui.pushButton.clicked.connect( Search )
 
 def on_click(self):
     try:
@@ -38,13 +39,14 @@ def on_click(self):
         prnt(text)
         ser.write(text.encode('utf-8'))  # поставить переменную (text), что-бы считывались команды введённые пользователем.
         response = ser.readline()
-        prnt(response)
+        print(response)
 
     except:
         prnt("Error...")
 
-ui.pushButton.clicked.connect( on_click )
+ui.pushButton_2.clicked.connect( on_click )
 
+# Функция для занесения данных в textEdit
 def prnt(s):
     ui.textEdit.insertPlainText(s)
 
