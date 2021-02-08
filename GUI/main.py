@@ -4,8 +4,6 @@ import serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
 from test import Ui_Dialog
 
-#ser = 0
-
 app = QtWidgets.QApplication(sys.argv)
 
 Dialog = QtWidgets.QDialog()
@@ -24,25 +22,19 @@ ui.pushButton.clicked.connect( Search )
 
 def on_click(self):
     try:
-        prnt("clic \n")
         comboText = ui.comboBox.currentText() # ComboBox (comboText) - порты.
         baudrate = ui.comboBox_2.currentText() # ComboBox_2 (baudrate) - скорость передачи данных.
         ser = serial.Serial(comboText, baudrate)
-        if ser.is_open():
-            prnt("Порт открыт.")
-        else:
-            prnt("Порт закрыт.")
-
-        prnt("Подключаемся...")
+        if ser.isOpen():
+            prnt("\nПодключаемся...\n")
 
         text = ui.lineEdit.text()
         prnt(text)
-        ser.write(text.encode('utf-8'))  # поставить переменную (text), что-бы считывались команды введённые пользователем.
+        ser.write("hello \n \r".encode('utf-8'))  # Переменная (text), что-бы считывались команды введённые пользователем.
         response = ser.readline()
-        print(response)
-
+        prnt(str(response))
     except:
-        prnt("Error...")
+        prnt("\nError \n")
 
 ui.pushButton_2.clicked.connect( on_click )
 
