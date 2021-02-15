@@ -1,3 +1,4 @@
+
 import sys
 import serial
 import pdb
@@ -11,6 +12,7 @@ Dialog = QtWidgets.QDialog()
 ui = Ui_Dialog()
 ui.setupUi(Dialog)
 Dialog.show()
+
 
 #Просиходит поиск портов и вывод их в comboBox.
 def Search():
@@ -32,7 +34,7 @@ def on_click():
         global ser
         ser = serial.Serial(comboText, baudrate)
         if ser.isOpen():
-            prnt("\nПодключаемся...\n")
+            prnt("\nПодключаемся к выбранному порту.\n")
     except:
         prnt("\nError \n")
 
@@ -42,11 +44,12 @@ ui.pushButton_2.clicked.connect( on_click )
 def request():
     try:
         text = ui.lineEdit.text()
-        ser.write("-> ".encode() + text.encode() + " \n".encode())  # Переменная (text), что-бы считывались команды введённые пользователем.
+        ser.write(text.encode('utf-8') + " \n".encode('utf-8'))  # Переменная (text), что-бы считывались данные введённые пользователем.
+        prnt("<-" + text + "\n")
         response = ser.readline()
-        prnt(str(response)+ "\n")
+        prnt("-> " + str(response) + "\n")
     except:
-        prnt("Press F to pay respect")
+        prnt("Error")
 
 ui.pushButton_3.clicked.connect( request )
 
