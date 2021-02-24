@@ -1,7 +1,5 @@
-
 import sys
 import serial
-import pdb
 import serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ConApi import Ui_Dialog
@@ -14,7 +12,7 @@ ui.setupUi(Dialog)
 Dialog.show()
 
 
-#Просиходит поиск портов и вывод их в comboBox.
+#Происходит поиск портов и вывод их в comboBox.
 def Search():
     ports = serial.tools.list_ports.comports()
     for port in ports:
@@ -32,7 +30,7 @@ def on_click():
         comboText = ui.comboBox.currentText() # ComboBox (comboText) - порты.
         baudrate = ui.comboBox_2.currentText() # ComboBox_2 (baudrate) - скорость передачи данных.
         global ser
-        ser = serial.Serial(comboText, baudrate)
+        ser = serial.Serial(comboText, baudrate, timeout = 1)
         if ser.isOpen():
             prnt("\nПодключаемся к выбранному порту.\n")
     except:
@@ -43,13 +41,13 @@ ui.pushButton_2.clicked.connect( on_click )
 # Отправка запроса преобразователю
 def request():
     try:
-        text = ui.lineEdit.text()
-        ser.write(text.encode('utf-8') + " \n".encode('utf-8'))  # Переменная (text), что-бы считывались данные введённые пользователем.
-        prnt("<-" + text + "\n")
-        response = ser.readline()
-        prnt("-> " + str(response) + "\n")
+            text = ui.lineEdit.text()
+            ser.write(text.encode('utf-8') + " \n".encode('utf-8'))  # Переменная (text), что-бы считывались данные введённые пользователем.
+            prnt("<-" + text + "\n")
+            response = ser.readline()
+            prnt("-> " + str(response) + "\n")
     except:
-        prnt("Error")
+            prnt("Error")
 
 ui.pushButton_3.clicked.connect( request )
 
